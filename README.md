@@ -1,7 +1,1 @@
-Example
-============
-
-This is an example readme at the first commit.
-
-# 611-example
-# BIOS-611
+Hi, this is my 611 Data Science Project. More to come.
