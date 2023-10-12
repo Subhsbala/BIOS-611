@@ -1,0 +1,277 @@
+---
+title: "Bios 611"
+author: "Subha Balasubramanian"
+date: "2023-10-05"
+output:
+  pdf_document: default
+  html_document: default
+output_dir: ./UNC/Fall_2023/BIOS_611/project
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir= 'UNC/Fall_2023/BIOS_611/project')
+```
+
+# Compiling and Loading all required libraries
+```{r}
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+library(scales)
+library(lubridate)
+
+```
+
+# Reading in all files from datasource 
+## Getting the files from github
+```{r}
+I16 <- "https://raw.githubusercontent.com/Subhsbala/BIOS-611/main/Data%20Source/In-patient/MUP_IHP_RY23_P03_V10_DY16_GEO.CSV"
+I17 <- "https://raw.githubusercontent.com/Subhsbala/BIOS-611/main/Data%20Source/In-patient/MUP_IHP_RY23_P03_V10_DY17_GEO.CSV"
+I18 <- "https://raw.githubusercontent.com/Subhsbala/BIOS-611/main/Data%20Source/In-patient/MUP_IHP_RY23_P03_V10_DY18_GEO.CSV"
+I19 <- "https://raw.githubusercontent.com/Subhsbala/BIOS-611/main/Data%20Source/In-patient/MUP_IHP_RY23_P03_V10_DY19_GEO.CSV"
+I20 <- "https://raw.githubusercontent.com/Subhsbala/BIOS-611/main/Data%20Source/In-patient/MUP_IHP_RY23_P03_V10_DY20_GEO.CSV"
+I21 <- "https://raw.githubusercontent.com/Subhsbala/BIOS-611/main/Data%20Source/In-patient/MUP_IHP_RY23_P03_V10_DY21_GEO.CSV"
+
+O16 <- "https://raw.githubusercontent.com/Subhsbala/BIOS-611/main/Data%20Source/Out-patient/MUP_OHP_R19_P04_V40_D16_Geo.csv"
+O17 <- "https://raw.githubusercontent.com/Subhsbala/BIOS-611/main/Data%20Source/Out-patient/MUP_OHP_R19_P04_V40_D17_Geo.csv"
+O18 <- "https://raw.githubusercontent.com/Subhsbala/BIOS-611/main/Data%20Source/Out-patient/MUP_OHP_R20_P04_V10_D18_Geo.csv"
+O19 <- "https://raw.githubusercontent.com/Subhsbala/BIOS-611/main/Data%20Source/Out-patient/MUP_OUT_RY21_P04_V10_DY19_Geo.csv"
+O20 <- "https://raw.githubusercontent.com/Subhsbala/BIOS-611/main/Data%20Source/Out-patient/MUP_OUT_RY22_P04_V10_DY20_Geo.csv"
+O21 <- "https://raw.githubusercontent.com/Subhsbala/BIOS-611/main/Data%20Source/Out-patient/MUP_OUT_RY23_P04_V10_DY21_Geo.csv"
+
+P16 <- "https://raw.githubusercontent.com/Subhsbala/BIOS-611/main/Data%20Source/Pat%20D%20Drug/MUP_DPR_RY21_P04_V10_DY16_Geo_0.csv"
+P17 <- "https://raw.githubusercontent.com/Subhsbala/BIOS-611/main/Data%20Source/Pat%20D%20Drug/MUP_PTD_R19_P16_V10_D17_Geo.csv"
+P18 <- "https://raw.githubusercontent.com/Subhsbala/BIOS-611/main/Data%20Source/Pat%20D%20Drug/MUP_DPR_RY21_P04_V10_DY18_Geo.csv"
+P19 <- "https://raw.githubusercontent.com/Subhsbala/BIOS-611/main/Data%20Source/Pat%20D%20Drug/MUP_DPR_RY21_P04_V10_DY19_Geo.csv"
+P20 <- "https://raw.githubusercontent.com/Subhsbala/BIOS-611/main/Data%20Source/Pat%20D%20Drug/MUP_DPR_RY22_P04_V10_DY20_Geo.csv"
+P21 <- "https://raw.githubusercontent.com/Subhsbala/BIOS-611/main/Data%20Source/Pat%20D%20Drug/MUP_DPR_RY23_P04_V10_DY21_Geo.csv"
+
+```
+
+## Reading in the In-patient files from 2016-2021
+```{r IP}
+
+IP_16 <- read_csv(url(I16),show_col_types = FALSE);
+IP_17 <- read_csv(url(I17),show_col_types = FALSE);
+IP_18 <- read_csv(url(I18),show_col_types = FALSE);
+IP_19 <- read_csv(url(I19),show_col_types = FALSE);
+IP_20 <- read_csv(url(I20),show_col_types = FALSE);
+IP_21 <- read_csv(url(I21),show_col_types = FALSE);
+
+```
+
+## Reading in the Out-patient files from 2016-2021
+```{r OP}
+OP_16 <- read_csv(url(O16),show_col_types = FALSE);
+OP_17 <- read_csv(url(O17),show_col_types = FALSE);
+OP_18 <- read_csv(url(O18),show_col_types = FALSE);
+OP_19 <- read_csv(url(O19),show_col_types = FALSE);
+OP_20 <- read_csv(url(O20),show_col_types = FALSE);
+OP_21 <- read_csv(url(O21),show_col_types = FALSE);
+
+```
+
+## Reading in the Part D Prescription Drug files from 2016-2021
+```{r Drugs}
+PD_16 <- read_csv(url(P16),show_col_types = FALSE);
+
+#Converting character variables to numeric to match the format of other files
+
+PD_17 <- read_csv(url(P17),show_col_types = FALSE);
+PD_17$Tot_Drug_Cst <- gsub("[$,]", "",PD_17$Tot_Drug_Cst)%>%  as.numeric();
+PD_17$GE65_Tot_Drug_Cst <- gsub("[$,]", "",PD_17$GE65_Tot_Drug_Cst)%>%  as.numeric();
+PD_17$LIS_Bene_Cst_Shr <- gsub("[$,]", "",PD_17$LIS_Bene_Cst_Shr)%>%  as.numeric();
+PD_17$NonLIS_Bene_Cst_Shr <- gsub("[$,]", "",PD_17$NonLIS_Bene_Cst_Shr)%>%  as.numeric();
+
+PD_18 <- read_csv(url(P18),show_col_types = FALSE);
+PD_19 <- read_csv(url(P19),show_col_types = FALSE);
+PD_20 <- read_csv(url(P20),show_col_types = FALSE);
+PD_21 <- read_csv(url(P21),show_col_types = FALSE);
+
+```
+
+## Combine all the IP, OP and PD datasets along with the Year column
+```{r}
+Bind <- function(data1,data2,data3,data4,data5,data6){
+  bind_rows(
+  data1 %>% mutate(Year = 2016),
+  data2 %>% mutate(Year = 2017),
+  data3 %>% mutate(Year = 2018),
+  data4 %>% mutate(Year = 2019),
+  data5 %>% mutate(Year = 2020),
+  data6 %>% mutate(Year = 2021)
+  )
+}
+
+IP <- Bind(IP_16,IP_17,IP_18,IP_19,IP_20,IP_21);
+OP <- Bind(OP_16,OP_17,OP_18,OP_19,OP_20,OP_21);
+PD <- Bind(PD_16,PD_17,PD_18,PD_19,PD_20,PD_21);
+```
+
+
+# Looking into the dataset
+```{r}
+IP %>% filter(Rndrng_Prvdr_Geo_Lvl=="National") %>% 
+  group_by(DRG_Cd) %>% tally() %>% 
+  arrange(desc(n)) %>% 
+  head(10)
+IP %>% filter(Rndrng_Prvdr_Geo_Lvl=="State") %>% 
+  group_by(Rndrng_Prvdr_Geo_Desc,DRG_Desc) %>% 
+  tally() %>% arrange(n) %>% 
+  head(10)
+```
+
+After looking into the dataset, we can come to the conclusion that this is an aggregated dataset, because for National, each DRG Code only occurs once for each year. We also observe that there are some DRG codes that occur only once in the entire dataset, meaning that in some years they were not used, or started using different categories for the same procedure.
+
+
+## Regrouping states to Regions
+```{r}
+
+region <- function(data){
+data %>% 
+  mutate(REGION = case_when( # add a 'region' column, based on the state,
+      Rndrng_Prvdr_Geo_Desc %in% c('Illinois', 'Indiana', 'Michigan', 'Ohio', 'Wisconsin') ~ 'East Midwest',
+      Rndrng_Prvdr_Geo_Desc %in% c('Minnesota', 'Iowa', 'Missouri', 'Kansas', 'Nebraska', 'South Dakota', 'North Dakota') ~ 'West Midwest',
+      Rndrng_Prvdr_Geo_Desc %in% c('Colorado', 'Idaho', 'Montana', 'Wyoming','Utah', 'Nevada') ~ 'Mountain',
+      Rndrng_Prvdr_Geo_Desc %in% c('Massachusetts', 'Maine', 'New Hampshire', 'Rhode Island', 'Vermont') ~ 'New England',
+      Rndrng_Prvdr_Geo_Desc %in% c('New York', 'Pennsylvania', 'Connecticut', 'New Jersey') ~ 'Middle Atlantic',
+      Rndrng_Prvdr_Geo_Desc %in% c('Georgia', 'North Carolina', 'South Carolina', 'Florida','Virginia','West Virginia','Delaware','Maryland','District of Columbia') ~ 'South Atlantic',
+      Rndrng_Prvdr_Geo_Desc %in% c('Texas', 'Oklahoma','New Mexico','Arizona') ~ 'Southwest',
+      Rndrng_Prvdr_Geo_Desc %in% c('Alabama', 'Kentucky','Mississippi','Tennessee','Arkansas','Louisiana') ~ 'Southeast',
+      Rndrng_Prvdr_Geo_Desc %in% c('California', 'Oregon', 'Washington','Hawaii','Alaska') ~ 'Pacific'
+    )
+  ) %>% 
+    mutate(Region5 = case_when(
+      REGION %in% c('Pacific','Mountain') ~ 'West',
+      REGION %in% c('Southeast', 'South Atlantic') ~ 'Southeast',
+      REGION %in% c('Southwest') ~ 'Southwest',
+      REGION %in% c('West Midwest','East Midwest') ~ 'Midwest',
+      REGION %in% c('Middle Atlantic','New England') ~ 'Northeast'
+    )
+  )
+}
+
+IP_Geo <- region(IP);
+OP_Geo <- region(OP);
+
+```
+
+### Cross checking if the states were mapped to the correct regions
+```{r}
+IP_Check <- region(IP) %>% 
+  group_by(Rndrng_Prvdr_Geo_Desc,REGION,Region5)%>% 
+  tally(); #To check if they are mapped appropriately
+IP_Check
+```
+
+## Getting the dataset ready for plotting
+```{r}
+
+#Calculating the average of Total payment across the regions
+IP_Geo <- IP_Geo %>% 
+  group_by(Region5,Year) %>% 
+  mutate(Avg_Paymt = mean(Avg_Submtd_Cvrd_Chrg))
+
+OP_Complete <- OP_Geo %>% 
+  filter(complete.cases(Avg_Tot_Sbmtd_Chrgs))%>% 
+  group_by(Region5,Year) %>% mutate(Avg_Paymt = mean(Avg_Tot_Sbmtd_Chrgs))
+```
+
+## Plotting IP and OP curve for total average expenditure
+```{r}
+
+#Plotting for line graph 
+region_plot <- function(data){
+  IP1 <- filter(data.frame(data),Rndrng_Prvdr_Geo_Lvl == "State") %>%
+    arrange(Region5,Year);
+
+  IP_plot <- ggplot(data = IP1, aes(x = Year, y = Avg_Paymt, color = Region5)) +
+  geom_line() +  # Line plot
+  scale_y_continuous(labels = dollar_format()) +
+  labs(title = "Time Series Plot for total average cost over the years 2016-2021",
+       x = "Year",
+       y = "Average Cost Incurred for services provided")
+
+  print(IP_plot)
+  
+}
+
+IP_Yr <- region_plot(IP_Geo);
+OP_Yr <- region_plot(OP_Complete);
+```
+
+From the above graphs we observe the following:
+1. First Graph - In patient :
+    There has been a steady increase in the average charge of all providers' services covered by Medicare for discharges in the DRG.
+2. Second Graph - Out-patient :
+    We observe a dip in 2017 in the average charges of all providers' services covered by Medicare for the APC and then slowly increases over the years. We attribute the dip in 2017 to an external event.
+3. Both graphs :
+    The states in Southwest and West region seem to have higher hospital charges when compared to the remainder of the United States.
+    
+Now let's look into the dataset even further and check the average charges billed to Medicare per discharge event
+```{r}
+IP_perdisc <- IP_Geo %>% 
+  group_by(Region5,Year) %>% 
+  mutate(Avg_Paymt_disc = mean(sum(Avg_Submtd_Cvrd_Chrg)/sum(Tot_Dschrgs)))
+
+OP_perdisc <- OP_Complete %>% 
+  group_by(Region5,Year) %>% 
+  mutate(Avg_Paymt_disc = mean(sum(Avg_Tot_Sbmtd_Chrgs)/sum(CAPC_Srvcs)))
+```
+
+## Plotting IP and OP curve for total amount per discharge
+```{r}
+
+#Plotting for line graph 
+region_plot <- function(data){
+  IP1 <- filter(data.frame(data),Rndrng_Prvdr_Geo_Lvl == "State") %>%
+    arrange(Region5,Year);
+
+  IP_plot <- ggplot(data = IP1, aes(x = Year, y = Avg_Paymt_disc, color = Region5)) +
+  geom_line() +  # Line plot
+  scale_y_continuous(labels = dollar_format()) +
+  labs(title = "Time Series Plot for average cost per discharge over the years 2016-2021",
+       x = "Year",
+       y = "Average Cost Incurred for services provided per discharge")
+
+  print(IP_plot)
+}
+
+IP_disc <- region_plot(IP_perdisc);
+OP_disc <- region_plot(OP_perdisc);
+```
+
+By observing the above graphs, we see a similar trend for average cost incurred per discharge across the years for both In-patient and Out-patient as we did for the average cost incurred for services provided. We can clearly see that the states in the West have higher hospital charges consistently over the years.
+
+## Getting the top 10 APC services provided for each year
+Now Let's look at the top 10 of out-patient services provided over the years
+```{r}
+
+# Calculate Total Services for each Year and APC_Desc
+OP_apc <- OP_Complete %>%
+  group_by(Year, APC_Desc) %>%
+  mutate(Tot_Srvcs = sum(CAPC_Srvcs)) %>%
+  distinct(Year, APC_Desc, Tot_Srvcs) %>%
+  arrange(Year,desc(Tot_Srvcs))
+
+
+# Get the first 10 rows for each year
+top_10_year <- OP_apc %>%
+  group_by(Year) %>%
+  slice_head(n = 10)
+
+# Create the bar plot
+OP_apc_plot <- ggplot(top_10_year, aes(x = APC_Desc, y = Tot_Srvcs)) +
+  geom_bar(stat = 'identity', position = 'dodge', aes(fill=as.factor(Year))) +
+  scale_y_continuous(labels = comma_format()) +
+  theme(axis.text.x = element_text(angle = 90)) +
+  labs(title = "Top 10 APC Description by Total Services for Each Year",
+       x = "APC Description",
+       y = "Total Services")
+
+print(OP_apc_plot)
+
+```
+
+From the above bar graph, we can see that for out-patient services, Comprehensive Observation Services is the number 1 out-patient service provided for Medicare patients across all years. Level 1 Intraocular Procedures and Level 2 Excision/Biopsy/Incision and Drainage are the next most common services provide. This makes sense, as older patients would require general check ups and eye related procedures.
