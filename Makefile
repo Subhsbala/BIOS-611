@@ -40,22 +40,25 @@ derived_data/Part_D.csv: .created-dirs\
   Pre_process3.R
 	Rscript Pre_process3.R
 	
-derived_data/In-patient_geo.csv: .created-dirs\
+derived_data/In-patient_Geo.csv derived_data/Out-patient_Geo.csv: .created-dirs\
   ./derived_data/In-patient.csv\
+  ./derived_data/Out-patient.csv\
   Derive_regions.R
 	Rscript Derive_regions.R
 	
-figures/total_cost_IP.png: .created-dirs\
+figures/total_cost_IP.png figures/total_cost_OP.png: .created-dirs\
   ./derived_data/In-patient_Geo.csv\
+  ./derived_data/Out-patient_Geo.csv\
   Plot_total_cost.R
 	Rscript Plot_total_cost.R
 	
-figures/total_cost_perdisc_IP.png: .created-dirs\
+figures/total_cost_perdisc_IP.png figures/total_cost_perdisc_OP.png: .created-dirs\
   ./derived_data/In-patient_Geo.csv\
-  Plot_total_per_discharge_cost.R
-	Rscript Plot_total_per_discharge_cost.R
+  ./derived_data/Out-patient_Geo.csv\
+  Plot_total_cost_per_discharge.R
+	Rscript Plot_total_cost_per_discharge.R
 	
 figures/Top10_APC.png: .created-dirs\
-  ./derived_data/OP_complete.csv\
-  Top10_APC.R\
+  ./derived_data/Out-patient_Geo.csv\
+  Top10_APC.R
 	Rscript Top10_APC.R
