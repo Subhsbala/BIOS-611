@@ -23,71 +23,45 @@ library(lubridate)
 
 ```
 
-# Reading in all files from datasource 
-## Getting the files from github
-```{r}
-I16 <- "https://raw.githubusercontent.com/Subhsbala/BIOS-611/main/Data%20Source/In-patient/MUP_IHP_RY23_P03_V10_DY16_GEO.CSV"
-I17 <- "https://raw.githubusercontent.com/Subhsbala/BIOS-611/main/Data%20Source/In-patient/MUP_IHP_RY23_P03_V10_DY17_GEO.CSV"
-I18 <- "https://raw.githubusercontent.com/Subhsbala/BIOS-611/main/Data%20Source/In-patient/MUP_IHP_RY23_P03_V10_DY18_GEO.CSV"
-I19 <- "https://raw.githubusercontent.com/Subhsbala/BIOS-611/main/Data%20Source/In-patient/MUP_IHP_RY23_P03_V10_DY19_GEO.CSV"
-I20 <- "https://raw.githubusercontent.com/Subhsbala/BIOS-611/main/Data%20Source/In-patient/MUP_IHP_RY23_P03_V10_DY20_GEO.CSV"
-I21 <- "https://raw.githubusercontent.com/Subhsbala/BIOS-611/main/Data%20Source/In-patient/MUP_IHP_RY23_P03_V10_DY21_GEO.CSV"
-
-O16 <- "https://raw.githubusercontent.com/Subhsbala/BIOS-611/main/Data%20Source/Out-patient/MUP_OHP_R19_P04_V40_D16_Geo.csv"
-O17 <- "https://raw.githubusercontent.com/Subhsbala/BIOS-611/main/Data%20Source/Out-patient/MUP_OHP_R19_P04_V40_D17_Geo.csv"
-O18 <- "https://raw.githubusercontent.com/Subhsbala/BIOS-611/main/Data%20Source/Out-patient/MUP_OHP_R20_P04_V10_D18_Geo.csv"
-O19 <- "https://raw.githubusercontent.com/Subhsbala/BIOS-611/main/Data%20Source/Out-patient/MUP_OUT_RY21_P04_V10_DY19_Geo.csv"
-O20 <- "https://raw.githubusercontent.com/Subhsbala/BIOS-611/main/Data%20Source/Out-patient/MUP_OUT_RY22_P04_V10_DY20_Geo.csv"
-O21 <- "https://raw.githubusercontent.com/Subhsbala/BIOS-611/main/Data%20Source/Out-patient/MUP_OUT_RY23_P04_V10_DY21_Geo.csv"
-
-P16 <- "https://raw.githubusercontent.com/Subhsbala/BIOS-611/main/Data%20Source/Pat%20D%20Drug/MUP_DPR_RY21_P04_V10_DY16_Geo_0.csv"
-P17 <- "https://raw.githubusercontent.com/Subhsbala/BIOS-611/main/Data%20Source/Pat%20D%20Drug/MUP_PTD_R19_P16_V10_D17_Geo.csv"
-P18 <- "https://raw.githubusercontent.com/Subhsbala/BIOS-611/main/Data%20Source/Pat%20D%20Drug/MUP_DPR_RY21_P04_V10_DY18_Geo.csv"
-P19 <- "https://raw.githubusercontent.com/Subhsbala/BIOS-611/main/Data%20Source/Pat%20D%20Drug/MUP_DPR_RY21_P04_V10_DY19_Geo.csv"
-P20 <- "https://raw.githubusercontent.com/Subhsbala/BIOS-611/main/Data%20Source/Pat%20D%20Drug/MUP_DPR_RY22_P04_V10_DY20_Geo.csv"
-P21 <- "https://raw.githubusercontent.com/Subhsbala/BIOS-611/main/Data%20Source/Pat%20D%20Drug/MUP_DPR_RY23_P04_V10_DY21_Geo.csv"
-
-```
-
 ## Reading in the In-patient files from 2016-2021
 ```{r IP}
 
-IP_16 <- read_csv(url(I16),show_col_types = FALSE);
-IP_17 <- read_csv(url(I17),show_col_types = FALSE);
-IP_18 <- read_csv(url(I18),show_col_types = FALSE);
-IP_19 <- read_csv(url(I19),show_col_types = FALSE);
-IP_20 <- read_csv(url(I20),show_col_types = FALSE);
-IP_21 <- read_csv(url(I21),show_col_types = FALSE);
+IP_16 <- read_csv("Data source/In-patient/MUP_IHP_RY23_P03_V10_DY16_GEO.CSV",show_col_types = FALSE);
+IP_17 <- read_csv("Data source/In-patient/MUP_IHP_RY23_P03_V10_DY17_GEO.CSV",show_col_types = FALSE);
+IP_18 <- read_csv("Data source/In-patient/MUP_IHP_RY23_P03_V10_DY18_GEO.CSV",show_col_types = FALSE);
+IP_19 <- read_csv("Data source/In-patient/MUP_IHP_RY23_P03_V10_DY19_GEO.CSV",show_col_types = FALSE);
+IP_20 <- read_csv("Data source/In-patient/MUP_IHP_RY23_P03_V10_DY20_GEO.CSV",show_col_types = FALSE);
+IP_21 <- read_csv("Data source/In-patient/MUP_IHP_RY23_P03_V10_DY21_GEO.CSV",show_col_types = FALSE);
 
 ```
 
 ## Reading in the Out-patient files from 2016-2021
 ```{r OP}
-OP_16 <- read_csv(url(O16),show_col_types = FALSE);
-OP_17 <- read_csv(url(O17),show_col_types = FALSE);
-OP_18 <- read_csv(url(O18),show_col_types = FALSE);
-OP_19 <- read_csv(url(O19),show_col_types = FALSE);
-OP_20 <- read_csv(url(O20),show_col_types = FALSE);
-OP_21 <- read_csv(url(O21),show_col_types = FALSE);
+OP_16 <- read_csv("Data source/Out-patient/MUP_OHP_R19_P04_V40_D16_GEO.CSV",show_col_types = FALSE);
+OP_17 <- read_csv("Data source/Out-patient/MUP_OHP_R19_P04_V40_D17_GEO.CSV",show_col_types = FALSE);
+OP_18 <- read_csv("Data source/Out-patient/MUP_OHP_R20_P04_V10_D18_GEO.CSV",show_col_types = FALSE);
+OP_19 <- read_csv("Data source/Out-patient/MUP_OUT_RY21_P04_V10_DY19_GEO.CSV",show_col_types = FALSE);
+OP_20 <- read_csv("Data source/Out-patient/MUP_OUT_RY22_P04_V10_DY20_GEO.CSV",show_col_types = FALSE);
+OP_21 <- read_csv("Data source/Out-patient/MUP_OUT_RY23_P04_V10_DY21_GEO.CSV",show_col_types = FALSE);
 
 ```
 
 ## Reading in the Part D Prescription Drug files from 2016-2021
 ```{r Drugs}
-PD_16 <- read_csv(url(P16),show_col_types = FALSE);
+PD_16 <- read_csv("Data source/Pat D Drug/MUP_DPR_RY21_P04_V10_DY16_GEO_0.CSV",show_col_types = FALSE);
 
 #Converting character variables to numeric to match the format of other files
 
-PD_17 <- read_csv(url(P17),show_col_types = FALSE);
+PD_17 <- read_csv("Data source/Pat D Drug/MUP_PTD_R19_P16_V10_D17_GEO.CSV",show_col_types = FALSE);
 PD_17$Tot_Drug_Cst <- gsub("[$,]", "",PD_17$Tot_Drug_Cst)%>%  as.numeric();
 PD_17$GE65_Tot_Drug_Cst <- gsub("[$,]", "",PD_17$GE65_Tot_Drug_Cst)%>%  as.numeric();
 PD_17$LIS_Bene_Cst_Shr <- gsub("[$,]", "",PD_17$LIS_Bene_Cst_Shr)%>%  as.numeric();
 PD_17$NonLIS_Bene_Cst_Shr <- gsub("[$,]", "",PD_17$NonLIS_Bene_Cst_Shr)%>%  as.numeric();
 
-PD_18 <- read_csv(url(P18),show_col_types = FALSE);
-PD_19 <- read_csv(url(P19),show_col_types = FALSE);
-PD_20 <- read_csv(url(P20),show_col_types = FALSE);
-PD_21 <- read_csv(url(P21),show_col_types = FALSE);
+PD_18 <- read_csv("Data source/Pat D Drug/MUP_DPR_RY21_P04_V10_DY18_GEO.CSV",show_col_types = FALSE);
+PD_19 <- read_csv("Data source/Pat D Drug/MUP_DPR_RY21_P04_V10_DY19_GEO.CSV",show_col_types = FALSE);
+PD_20 <- read_csv("Data source/Pat D Drug/MUP_DPR_RY22_P04_V10_DY20_GEO.CSV",show_col_types = FALSE);
+PD_21 <- read_csv("Data source/Pat D Drug/MUP_DPR_RY23_P04_V10_DY21_GEO.CSV",show_col_types = FALSE);
 
 ```
 
@@ -275,3 +249,170 @@ print(OP_apc_plot)
 ```
 
 From the above bar graph, we can see that for out-patient services, Comprehensive Observation Services is the number 1 out-patient service provided for Medicare patients across all years. Level 1 Intraocular Procedures and Level 2 Excision/Biopsy/Incision and Drainage are the next most common services provide. This makes sense, as older patients would require general check ups and eye related procedures.
+
+#Loading libraries as required
+
+```{r}
+install.packages("corrr")
+install.packages("ggcorrplot")
+install.packages("FactoMineR")
+install.packages("factoextra")
+
+library(corrr)
+library(ggcorrplot)
+library(FactoMineR)
+library(factoextra)
+```
+
+#Importing external dataset
+```{r}
+PRICE <- read_csv("Data Source/state_stdprices.csv");
+wide_PRICE <- PRICE %>%
+  filter(cohort_web_label == "Reimbursements") %>%
+  distinct(Geo_code, Year,Population, Short_label, Adjusted_Rate, cohort_web_label) %>%
+  select(Geo_code, Year, Population, Short_label, Adjusted_Rate, cohort_web_label) %>%
+  pivot_wider(names_from = Short_label, values_from = Adjusted_Rate) %>%
+  mutate(Geo_code = as.numeric(Geo_code));
+
+
+AGE_SEX <- read_csv("Data Source/Pop_by_Age_Sex.csv");
+RACE <- read_csv("Data Source/Pop_by_Race.csv");
+INCOME <- read_csv("Data Source/Pop_by_Income.csv");
+
+```
+
+# Joining datasets
+```{r}
+DEMO <- AGE_SEX %>%
+  full_join(RACE, by = c("Statefips", "Countyfips", "Year")) %>%
+  full_join(INCOME, by = c("Statefips", "Countyfips", "Year"))
+
+
+IP_JOIN <- IP_Geo %>%
+  mutate(Rndrng_Prvdr_Geo_Cd = as.numeric(Rndrng_Prvdr_Geo_Cd)) %>%
+  left_join(wide_PRICE, by = c("Rndrng_Prvdr_Geo_Cd" = "Geo_code", "Year" = "Year")) %>%
+  left_join(DEMO, by = c("Rndrng_Prvdr_Geo_Cd" = "Statefips", "Year" = "Year"))
+
+
+```
+
+#Preparing PCA dataset
+```{r}
+#Creating base dataset with only numeric variables
+IP_PCA <- filter(IP_JOIN,Rndrng_Prvdr_Geo_Lvl == "State") %>%
+  mutate(DRG_Cd = as.numeric(DRG_Cd)); 
+
+IP_SELECT <- IP_PCA[,c(2,4,6,10,13,16,17,18,19,20,21,22,28,29,30,31,32,33,34,35,36,37)] %>%
+  na.omit();
+
+IP_SELECT_matrix <- as.matrix(IP_SELECT);
+
+#Checking if columns don't have missing values
+colSums(is.na(IP_SELECT_matrix));
+
+#Normalizing the data
+data_normalized <- scale(IP_SELECT_matrix);
+```
+
+### Code from web using special packages
+```{r}
+#Checking correlation matrix
+corr_matrix <- cor(data_normalized);
+corr_plot <- ggcorrplot(corr_matrix);
+print(corr_plot);
+
+data.pca <- princomp(corr_matrix)
+summary(data.pca)
+
+data.pca$loadings[, 1:2]
+fviz_eig(data.pca, addlabels = TRUE) #Scree plot
+
+# Graph of the variables
+fviz_pca_var(data.pca, col.var = "black")
+fviz_cos2(data.pca, choice = "var", axes = 1:2)
+fviz_pca_var(data.pca, col.var = "cos2",
+            gradient.cols = c("black", "orange", "green"),
+            repel = TRUE)
+```
+
+The scree plot shows the variance explained by each principal component in descending order. It helps determine the optimal number of principal components to retain in PCA. Our scree plot shows that 71.6% percent of our data can be explained by the first principal component. We would ideally keep 4 PC's which would allow us to explain around 90% of our data. 
+
+#Performing PCA
+```{r}
+results <- prcomp(data_normalized);
+results$x;
+
+ggplot(results$x %>% as_tibble() %>% select(PC2,PC3),aes(PC2,PC3)) +
+  geom_point();
+
+# Variance explained
+variance <- results$sdev^2 / sum(results$sdev^2) 
+
+# Plot variance explained
+
+plot(variance, xlab = "Principal Component", 
+     ylab = "Variance Explained", ylim = c(0, 1),
+     type = "b")
+
+# Select PCs to retain 
+# e.g. retain PCs explaining 70% variance
+cumsum(variance) < 0.75  
+n_pcs <- 4
+
+# Extract selected PCs
+IP_SELECT_red <- results$x[,1:n_pcs]
+
+```
+
+Looking at the cumulative variance we can see that using 4 PC's we can explain around 75% of teh variances.
+
+#Clustering
+```{r}
+
+# K-means clustering
+kmeans_fit <- kmeans(IP_SELECT_red, 5) # 4 clusters
+
+# Extract cluster assignment
+clusters <- kmeans_fit$cluster
+
+# Plot clusters
+plot(IP_SELECT_red, col = clusters) 
+
+# Add cluster centers 
+points(kmeans_fit$centers, col = 1:6, pch = 8)
+
+```
+
+How to join cluster data back to original dtaset?
+IP_SELECT_ex <- IP_JOIN %>%
+  left_join(IP_SELECT %>% mutate(cluster= kmeans_fit$cluster) %>% select(Rndrng_Prvdr_Geo_Cd,DRG_Cd,cluster), by=c("Rndrng_Prvdr_Geo_Cd","DRG_Cd"))
+
+#Choosing number of clusters required
+```{r}
+
+# Decide how many clusters to look at
+n_clusters <- 10
+
+# Initialize total within sum of squares error: wss
+wss <- numeric(n_clusters)
+
+set.seed(123)
+
+# Look over 1 to n possible clusters
+for (i in 1:n_clusters) {
+  # Fit the model: km.out
+  km.out <- kmeans(IP_SELECT_red, centers = i, nstart = 20)
+  # Save the within cluster sum of squares
+  wss[i] <- km.out$tot.withinss
+}
+
+# Produce a scree plot
+wss_df <- tibble(clusters = 1:n_clusters, wss = wss)
+ 
+scree_plot <- ggplot(wss_df, aes(x = clusters, y = wss, group = 1)) +
+    geom_point(size = 4)+
+    geom_line() +
+    scale_x_continuous(breaks = c(2, 4, 6, 8, 10)) +
+    xlab('Number of clusters')
+scree_plot
+```
