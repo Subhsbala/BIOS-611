@@ -30,11 +30,11 @@ PCA_table <- results$x %>% as_tibble();
 # Joining dataset with Region to color code
 OP_PCA_R <- OP_PCA %>%
   inner_join(OP_Geo %>%
-               select(Rndrng_Prvdr_Geo_Cd,Region5,Region2) %>%
+               select(Rndrng_Prvdr_Geo_Cd,Rndrng_Prvdr_Geo_Desc,Region5,Region2) %>%
                distinct() %>%
                mutate(Rndrng_Prvdr_Geo_Cd = as.numeric(Rndrng_Prvdr_Geo_Cd)),
              by=c("Rndrng_Prvdr_Geo_Cd")) %>%
-  select(c(1,2,57,58))
+  select(c(1,2,3,57,58))
 
 OP_Color <- cbind(OP_PCA_R,PCA_table)
 
@@ -44,11 +44,11 @@ ggplot(OP_Color,aes(PC1,PC2,color=Region2)) +
 
 ggsave("figures/PCA_Region2.png")
 
-# Plotting the PC1 across PC2 colored by Region5
+# Plotting the PC1 across PC2 colored by Year
 ggplot(OP_Color,aes(PC1,PC2,color=Region5)) +
   geom_point();
 
-ggsave('figures/PCA_Region5.png')
+ggsave('figures/PCA_Year.png')
 
 # Variance explained
 variance <- results$sdev^2 / sum(results$sdev^2) 
