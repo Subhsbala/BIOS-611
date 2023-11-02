@@ -269,8 +269,8 @@ library(factoextra)
 PRICE <- read_csv("Data Source/state_stdprices.csv");
 wide_PRICE <- PRICE %>%
   filter(cohort_web_label == "Reimbursements") %>%
-  distinct(Geo_code, Year,Population, Short_label, Adjusted_Rate, cohort_web_label) %>%
-  select(Geo_code, Year, Population, Short_label, Adjusted_Rate, cohort_web_label) %>%
+  distinct(Geo_code, Year,Population, Short_label, Adjusted_Rate) %>%
+  select(Geo_code, Year, Population, Short_label, Adjusted_Rate) %>%
   pivot_wider(names_from = Short_label, values_from = Adjusted_Rate) %>%
   mutate(Geo_code = as.numeric(Geo_code));
 
@@ -299,10 +299,10 @@ IP_JOIN <- IP_Geo %>%
 #Preparing PCA dataset
 ```{r}
 #Creating base dataset with only numeric variables
-IP_PCA <- filter(IP_JOIN,Rndrng_Prvdr_Geo_Lvl == "State") %>%
+IP_PCA <- filter(IP_JOIN,Rndrng_Prvdr_Geo_Lvl == "State" & Year == 2016) %>%
   mutate(DRG_Cd = as.numeric(DRG_Cd)); 
 
-IP_SELECT <- IP_PCA[,c(2,4,6,10,13,16,17,18,19,20,21,22,28,29,30,31,32,33,34,35,36,37)] %>%
+IP_SELECT <- IP_PCA[,c(2,4,6,13,16,17,18,19,20,21,22,28,29,30,31,32,33,34,35,36,37)] %>%
   na.omit();
 
 IP_SELECT_matrix <- as.matrix(IP_SELECT);
@@ -401,7 +401,7 @@ set.seed(123)
 # Look over 1 to n possible clusters
 for (i in 1:n_clusters) {
   # Fit the model: km.out
-  km.out <- kmeans(IP_SELECT_red, centers = i, nstart = 20)
+  km.out <- kmeans(OP_cluster, centers = i, nstart = 20)
   # Save the within cluster sum of squares
   wss[i] <- km.out$tot.withinss
 }
