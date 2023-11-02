@@ -40,6 +40,14 @@ derived_data/Part_D.csv: .created-dirs\
   Pre_process3.R
 	Rscript Pre_process3.R
 	
+derived_data/Demographics.csv derived_data/State_price.csv: .created-dirs\
+	./Data\ source/state_stdprices.csv\
+  ./Data\ source/Pop_by_Age_Sex.csv\
+  ./Data\ source/Pop_by_Race.csv\
+  ./Data\ source/Pop_by_Income.csv\
+  Pre_process4.R
+	Rscript Pre_process4.R
+	
 derived_data/In-patient_Geo.csv derived_data/Out-patient_Geo.csv: .created-dirs\
   ./derived_data/In-patient.csv\
   ./derived_data/Out-patient.csv\
@@ -62,3 +70,20 @@ figures/Top10_APC.png: .created-dirs\
   ./derived_data/Out-patient_Geo.csv\
   Top10_APC.R
 	Rscript Top10_APC.R
+
+derived_data/OP_wide: .created-dirs\
+	./derived_data/Out-patient_Geo.csv\
+  ./derived_data/State_price.csv\
+  ./derived_data/Demographics.csv\
+  PCA_preprocess.R
+	Rscript PCA_preprocess.R
+
+figures/PCA_Region2.png figures/PCA_Region5.png figures/PCA.png: .created-dirs\
+  ./derived_data/OP_wide.csv\
+  PCA.R
+	Rscript PCA.R
+	
+figures/cluster_plot.png: .created-dirs\
+  ./derived_data/OP_wide.csv\
+  Clustering.R
+	Rscript Clustering.R
