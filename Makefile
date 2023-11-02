@@ -71,7 +71,7 @@ figures/Top10_APC.png: .created-dirs\
   Top10_APC.R
 	Rscript Top10_APC.R
 
-derived_data/OP_wide: .created-dirs\
+derived_data/OP_wide.csv: .created-dirs\
 	./derived_data/Out-patient_Geo.csv\
   ./derived_data/State_price.csv\
   ./derived_data/Demographics.csv\
