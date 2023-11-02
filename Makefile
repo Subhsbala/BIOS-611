@@ -78,7 +78,7 @@ derived_data/OP_wide: .created-dirs\
   PCA_preprocess.R
 	Rscript PCA_preprocess.R
 
-figures/PCA_Region2.png figures/PCA_Region5.png figures/PCA.png: .created-dirs\
+figures/PCA_Region2.png figures/PCA_Year.png figures/PCA.png: .created-dirs\
   ./derived_data/OP_wide.csv\
   PCA.R
 	Rscript PCA.R
