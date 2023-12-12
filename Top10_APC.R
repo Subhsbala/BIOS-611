@@ -5,7 +5,6 @@ library(scales)
 library(lubridate)
 
 #Reading our input datasets
-IP_Geo <- read_csv("derived_data/In-patient_Geo.csv");
 OP_Geo <- read_csv("derived_data/Out-patient_Geo.csv");
 
 OP_Complete <- OP_Geo %>% 
