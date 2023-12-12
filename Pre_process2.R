@@ -24,6 +24,8 @@ Bind <- function(data1,data2,data3,data4,data5,data6){
   )
 }
 
-OP <- Bind(OP_16,OP_17,OP_18,OP_19,OP_20,OP_21);
+OP <- Bind(OP_16,OP_17,OP_18,OP_19,OP_20,OP_21) %>% 
+  filter(Srvc_Lvl == "APC") %>%
+  mutate(Rndrng_Prvdr_Geo_Cd = as.numeric(Rndrng_Prvdr_Geo_Cd));
 
 write_csv(OP, "derived_data/Out-patient.csv");

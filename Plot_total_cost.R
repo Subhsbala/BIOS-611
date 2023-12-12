@@ -4,15 +4,10 @@ library(ggplot2)
 library(scales)
 
 #Reading our input datasets
-IP_Geo <- read_csv("derived_data/In-patient_Geo.csv");
 OP_Geo <- read_csv("derived_data/Out-patient_Geo.csv");
 
 ## Getting the dataset ready for plotting
 #Calculating the average of Total payment across the regions
-IP_Geo <- IP_Geo %>% 
-  group_by(Region5,Year) %>% 
-  mutate(Avg_Paymt = mean(Avg_Submtd_Cvrd_Chrg))
-
 OP_Complete <- OP_Geo %>% 
   filter(complete.cases(Avg_Tot_Sbmtd_Chrgs))%>% 
   group_by(Region5,Year) %>% mutate(Avg_Paymt = mean(Avg_Tot_Sbmtd_Chrgs))
@@ -35,10 +30,6 @@ region_plot <- function(data,subtitle){
 
   print(plot);
 }
-
-IP_Yr <- region_plot(IP_Geo,subtitle="In-patient records");
-ggsave("figures/total_cost_IP.png",IP_Yr);
-
 
 OP_Yr <- region_plot(OP_Complete,subtitle = "Out-patient records");
 ggsave("figures/total_cost_OP.png",OP_Yr);

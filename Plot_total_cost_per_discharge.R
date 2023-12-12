@@ -4,7 +4,6 @@ library(ggplot2)
 library(scales)
 
 #Reading our input datasets
-IP_Geo <- read_csv("derived_data/In-patient_Geo.csv");
 OP_Geo <- read_csv("derived_data/Out-patient_Geo.csv");
 
 OP_Complete <- OP_Geo %>% 
@@ -13,15 +12,11 @@ OP_Complete <- OP_Geo %>%
 
 #Now let's look into the dataset even further and check the average charges billed to Medicare per discharge event
 
-IP_perdisc <- IP_Geo %>% 
-  group_by(Region5,Year) %>% 
-  mutate(Avg_Paymt_disc = mean(sum(Avg_Submtd_Cvrd_Chrg)/sum(Tot_Dschrgs)))
-
 OP_perdisc <- OP_Complete %>% 
   group_by(Region5,Year) %>% 
   mutate(Avg_Paymt_disc = mean(sum(Avg_Tot_Sbmtd_Chrgs)/sum(CAPC_Srvcs)))
 
-## Plotting IP and OP curve for total amount per discharge
+## Plotting OP curve for total amount per discharge
 
 #Plotting for line graph 
 region_plot <- function(data,subtitle){
@@ -41,9 +36,6 @@ region_plot <- function(data,subtitle){
 
   print(plot)
 }
-
-IP_disc <- region_plot(IP_perdisc,subtitle="In-patient records");
-ggsave("figures/total_cost_perdisc_IP.png",IP_disc);
 
 OP_disc <- region_plot(OP_perdisc,subtitle="Out-patient records");
 ggsave("figures/total_cost_perdisc_OP.png",OP_disc);
