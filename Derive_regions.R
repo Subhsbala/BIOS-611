@@ -28,12 +28,9 @@ region <- function(data){
 }
 
 
-IP <- read_csv("derived_data/In-patient.csv");
 OP <- read_csv("derived_data/Out-patient.csv");
 
-IP_Geo <- region(IP);
 OP_Geo <- region(OP);
 
-write_csv(IP_Geo,"derived_data/In-patient_Geo.csv");
 write_csv(OP_Geo,"derived_data/Out-patient_Geo.csv");
 
