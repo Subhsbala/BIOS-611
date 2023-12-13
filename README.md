@@ -1,18 +1,18 @@
-#HEALTHCARE CLAIMS DATASET
+# HEALTHCARE CLAIMS DATASET
 
 For previous HW's use Commit ID = commit 7f3a4ec72d96332eb51256d0bc802dbf2c263f9f
 
 # PROJECT SUMMARY
 ## Subha Balasubramanian
-## What variables are determinant of helathcare Uitlization?
+## What variables are determinant of Healthcare Uitlization?
 
 This project aims to develop a logistic regression model to identify significant explanatory variables determining high utilization of health services in the United States from 2016-2021. The data used in this study is sourced from CMS administrative claims data provided by CMS.gov.The Medicare Outpatient Hospitals by Geography and Service dataset provides information on services for Original Medicare Part B beneficiaries by OPPS hospitals. 
 
-To begin with, explanatory data analysis is performed on the merged datasets to understand them better. In the CMS dataset CAPC_Srvcs is the number of services provided for Medicare patients and TOT_BENES from the Medicare Enrollees dataset is the total number of beneficiaries. Dividing CAPC_Srvcs by TOT_BENES gives us the utlization rate in each state. We plot a correlation heat map between each pairs of variable. Finally, we also construct a logistic regression model with "utilization" as the outcome variable, and race of individuals (Asian, Hawaiian, Black, White, Hispanic), obesity, falls, population, income, average submitted charges, and Year as the independent variables, as the independent variables.
+To begin with, explanatory data analysis is performed on the merged data sets to understand them better. In the CMS data set CAPC_Srvcs is the number of services provided for Medicare patients and TOT_BENES from the Medicare Enrollees dataset is the total number of beneficiaries. Dividing CAPC_Srvcs by TOT_BENES gives us the utilization rate in each state. We plot a correlation heat map between each pairs of variable. Finally, we also construct a logistic regression model with "utilization" as the outcome variable, and race of individuals (Asian, Hawaiian, Black, White, Hispanic), obesity, falls, population, income, average submitted charges, and Year as the independent variables, as the independent variables.
 
 
 # Using this repository
-This repository is best used via Docker although you may be able to consult the Dockerfile to understand what requirements are appropriate to run the code.
+This repository is best used via Docker although you may be able to consult the Docker file to understand what requirements are appropriate to run the code.
 
 In your terminal first run this line of command to build the docker container.
 ```
@@ -24,13 +24,14 @@ Users may then start an RStudio session using the following command.
 ```
 docker run -v ${pwd}:/home/rstudio/work -e PASSWORD=subha --rm -p 8787:8787 sub611
 ```
+Then log onto localhost:8787 in a web browser with the username: rstudio and password: subha
 
 # Project Organization
 The best way to understand what this project does is to examine the Makefile.
 
 A Makefile is a textual description of the relationships between artifacts (like data, figures, source files, etc). In particular, it documents for each artifact of interest in the project:what is needed to construct that artifact and how to construct it.
 
-But a Makefile is more than documentation. Using the tool make (included in the Docker container), the Makefile allows for the automatic reproduction of an artifact (and all the artifacts which it depends on) by simply issueing the command to make it.
+But a Makefile is more than documentation. Using the tool make (included in the Docker container), the Makefile allows for the automatic reproduction of an artifact (and all the artifacts which it depends on) by simply issuing the command to make it.
 
 Consider this snippet from the Makefile included in this project:
 ```
