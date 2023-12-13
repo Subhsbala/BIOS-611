@@ -38,7 +38,7 @@ Consider this snippet from the Makefile included in this project:
 figures/Top10_APC.png: .created-dirs\
   ./derived_data/Out-patient_Geo.csv\
   Top10_APC.R
-	Rscript Top10_APC.R
+  Rscript Top10_APC.R
 ```
 In this snippet we have the artifact "Top10_APC.png", and the dependencies "Out-patient_Geo.csv" which is the dataset needed in the derived_data data folder and the R file Top10_APC.R and we specify that the R script Top10_APC is used to build it.
 
