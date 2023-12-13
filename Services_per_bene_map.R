@@ -1,10 +1,15 @@
 # Load US state map data
-library(maps)
+library(tidyverse)
 library(dplyr)
+library(ggplot2)
+library(ggmap)
+library(maps)
+library(mapdata)
+
 states_map <- map_data("state")
 
 # Read in input file
-OP_Musc <- read_csv("derived_data/OP_Musculoskeletal")
+OP_Musc <- read_csv("derived_data/OP_Musculoskeletal.csv")
 
 # Calculate number of services received per beneficiary in each state
 OP_ser <- OP_Musc %>% 

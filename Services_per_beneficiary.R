@@ -1,7 +1,7 @@
 library(dplyr)
 
 # Read in input files
-OP_Musc <- read_csv("derived_data/OP_Musculoskeletal")
+OP_Musc <- read_csv("derived_data/OP_Musculoskeletal.csv")
 
 
 # Calculate number of services received per beneficiary in each state

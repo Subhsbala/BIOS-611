@@ -1,7 +1,8 @@
 library(dplyr)
+library(tidyverse)
 
 # Read in input files
-OP_Musc <- read_csv("derived_data/OP_Musculoskeletal")
+OP_Musc <- read_csv("derived_data/OP_Musculoskeletal.csv")
 
 # Calculate number of services received per beneficiary in each state
 OP_region <- OP_Musc %>% 
@@ -18,9 +19,9 @@ region_plot <- function(data){
   plot <- ggplot(data = IP1, aes(x = Year, y = srvc_per_bene,color=Region5)) +
     geom_line() +  # Specify stat = "identity" for actual values
     labs(title = "Time sereis graph for no. of services per 1000 beneficiaries",
-         subtitle = paste("Out-patient records"),
+         subtitle = paste("Musculoskeletal procedures: Out-patient records"),
          x = "Year",
-         y = "Number of services provided per 1000 beneficiary") +
+         y = "Number of services per 1000 beneficiary") +
     theme(axis.text.x = element_text(angle = 90)) +
     theme(plot.title = element_text(size = 10),
           plot.subtitle = element_text(size = 9),
