@@ -24,58 +24,42 @@ To begin we start off with an explantory data analysis on the merged datasets
 
 ### Time series charts to visualze the trend over the years. 
 
-#### Time series Chart of Total average cost of services provided by region
+#### 1. Time series Chart of Total average cost of services provided by region
 
 Region is categorized into 5 different areas- Midwest, Northeast, Southeast Southwest, and West. We see below a line chart of the 5 different regions. 
 We can see that the states in the Southwest region have greater charges for medicare services when compared to the Eastern states. 
 
 ![Total average cost by region time series graph](./figures/total_cost_OP.png) 
 
-#### Time series Chart of Total average cost of services per discharge provided by region
+#### 2. Time series Chart of Total average cost of services per discharge provided by region
 Region is categorized into 5 different areas- Midwest, Northeast, Southeast Southwest, and West. We have plotted below  a time series graph of the different regions.
 We can see clearly that the states in the West have higher costs per discharge when compared to the other regions.
 
 ![Total average cost per discharge by region time series graph](./figures/total_cost_perdisc_OP.png)
 We also observe that there has been a drop in the charges for medicare services from 2016 to 2017 and remains fairly constant through 2019 and then slowly increases till 2021.
 
-### Top 10 APC services used by beneficiaries over the years.
+#### 3. Top 10 APC services used by beneficiaries over the years.
 The top 10 APC's with highest number of services used by beneficiaries over the years is depicted in the graph below:
 
 ![Top 10 APC's](./figures/Top10_APC.png)
-We can see that Comprehensive Observation services is the APC that has been the most used service throughout the years. Musculoskeletal procedures occurs thrice at different levels. Thus moving forward we will subset our data set to Musculoskeletal procedures and perform machine learning methods to classify states based on utilization rates.
+We can see that Comprehensive Observation services is the APC that has been the most used service throughout the years. Musculoskeletal procedures occurs thrice at different levels. Thus moving forward we will subset our data set to **Musculoskeletal procedures** and perform machine learning methods to classify states based on utilization rates.
 
-#### Time series Chart of services per 1000 beneficiaries for Musculoskeletal procedures 
+#### 4. Time series Chart of services per 1000 beneficiaries for Musculoskeletal procedures 
 Region is categorized into 5 different areas- Midwest, Northeast, Southeast Southwest, and West. We have plotted below  a time series graph of the different regions.
 We can see that the Southwest and Southeast states receive the most medicare services throughout the years on average.
 
 ![Services per 1000 beneficiaries](./figures/service_per_bene_OP.png)
 
-#### Classification of US states based on healthcare utilization
+#### 5. Classification of US states based on healthcare utilization
 Coding for high utilization: 1 if number of services received per 1000 beneficiaries is greater than 4 then that state is considered to have high healthcare utilization and 0 otherwise. Below we can see the US map over the years colored blue based on healthcare utilization.
+![US 2016](./figures/services_USmap2016.png)
+![US 2017](./figures/services_USmap2017.png)
+![US 2018](./figures/services_USmap2018.png)
 
-# Exploratory Data Analysis Visualizations
-
-<div style="display: flex; flex-wrap: wrap; padding: 0; margin: 0; justify-content: space-around;">
-  <div style="flex: 0 0 50%; padding: 10px;">
-    ![US 2016](./figures/services_USmap2016.png)
-  </div>
-  <div style="flex: 0 0 50%; padding: 10px;">
-    ![US 2017](./figures/services_USmap2017.png)
-  </div>
-  <div style="flex: 0 0 50%; padding: 10px;">
-    ![US Map of Services 2018](.figures/services_USmap2018.png)
-  </div>
-  <div style="flex: 0 0 50%; padding: 10px;">
-    ![US 2019](./figures/services_USmap2019.png)
-  </div>
-  <div style="flex: 0 0 50%; padding: 10px;">
-    ![US 2020](./figures/services_USmap2020.png)
-  </div>
-  <div style="flex: 0 0 50%; padding: 10px;">
-    ![US 2021](./figures/services_USmap2021.png)
-  </div>
-</div>
-
+![US 2019](./figures/services_USmap2019.png)
+![US 2020](./figures/services_USmap2020.png)
+![US 2021](./figures/services_USmap2021.png)
+We can see that over the years the utilization of healthcare has increased, and South and North Dakota have had high utilization from the beginning of 2016.
 
 ### Correlation between all the variables
 
@@ -90,56 +74,56 @@ As we can see, race of an individual is highly correlated with each other with a
 
 Finally, we fit a logistic regression model with utilization as the outcome variable and race of individuals (Asian, Hawaiian, Black, White, Hispanic), obesity, falls, population, income, average submitted charges, and Year as the independent variables. The model is as shown below.
 
-ll:
+Call:
 glm(formula = utilization ~ obese + falls + pop + white + black + 
     hawai + asian + hispanic + avg_chrg + Year + income, family = "binomial", 
     data = OP_util)
 
 Coefficients:
             Estimate Std. Error z value Pr(>|z|)    
-(Intercept) -4.56269    0.76395  -5.973 2.34e-09 ***
-obese        0.49342    0.35798   1.378 0.168095    
-falls        0.05583    0.32027   0.174 0.861623    
-pop         -2.49519    0.54572  -4.572 4.83e-06 ***
-white       -2.11300    0.97415  -2.169 0.030077 *  
-black       -1.90862    0.82795  -2.305 0.021154 *  
-hawai       -6.33006    2.48392  -2.548 0.010821 *  
-asian       -5.35350    1.52352  -3.514 0.000442 ***
-hispanic    -0.30377    0.40302  -0.754 0.451017    
-avg_chrg    -0.77779    0.40692  -1.911 0.055950 .  
-Year         1.86638    0.40130   4.651 3.31e-06 ***
-income      -0.04333    0.39807  -0.109 0.913320    
+(Intercept) -4.56269    0.76395  -5.973 2.34e-09  
+obese        0.49342    0.35798   1.378 0.168095  
+falls        0.05583    0.32027   0.174 0.861623  
+pop         -2.49519    0.54572  -4.572 4.83e-06  
+white       -2.11300    0.97415  -2.169 0.030077  
+black       -1.90862    0.82795  -2.305 0.021154  
+hawai       -6.33006    2.48392  -2.548 0.010821  
+asian       -5.35350    1.52352  -3.514 0.000442  
+hispanic    -0.30377    0.40302  -0.754 0.451017  
+avg_chrg    -0.77779    0.40692  -1.911 0.055950  
+Year         1.86638    0.40130   4.651 3.31e-06  
+income      -0.04333    0.39807  -0.109 0.913320      
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 (Dispersion parameter for binomial family taken to be 1)
 
     Null deviance: 202.44  on 198  degrees of freedom
-Residual deviance: 111.31  on 187  degrees of freedom
-AIC: 135.31
+    Residual deviance: 111.31  on 187  degrees of freedom
+    AIC: 135.31
 
 Number of Fisher Scoring iterations: 8
 
 
-From the p values, we see that Year, Asian race and population in each state is a significant predictor of healthcare utilization in each state.
+From the p values, we see that Year, Asian race and population in each state is a significant predictor of healthcare utilization.
 
 #### Performance metrics
 
 Below we can see the performance metrics of the Logistic regression model:
 
-Confusion matrix:
+**Confusion matrix:
    
-      0   1
-  0 150   8
-  1  16  25
+    0   1
+0 150   8
+1  16  25
 
 
-Accuracy: 0.879397 
+**Accuracy:** 0.879397 
 
-Sensitivity: 0.6097561 
+**Sensitivity:** 0.6097561 
 
-Specificity: 0.9493671 
+**Specificity:** 0.9493671 
 
 ![ROC Curve](./figures/ROC_curve.png)
+
 We can see that the Area under the curve is 0.919, this is also because we are predicting using the same data set we trained on. Thus we can say that Year, population size and Asian race are very significant variables when determining healthcare utilization in the states. The less significant variables are White, Black and Hawaiian race variables.
 
