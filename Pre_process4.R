@@ -18,8 +18,9 @@ INCOME <- read_csv("Data Source/Pop_by_Income.csv",show_col_types = FALSE) %>%
 #Medicare Enrollees
 ENROLL <- read_csv("Data Source/Medicare_Enrollees.csv",show_col_types = FALSE) %>%
   select(c(1,5,7,8,9)) %>%
-  mutate(TOT_BENES = as.numeric(TOT_BENES)) %>%
-  mutate(MDCR_BENES = as.numeric(ORGNL_MDCR_BENES)) ;
+  filter(BENE_FIPS_CD != 99) %>%
+  mutate(TOT_BENES = as.numeric(TOT_BENES))%>%
+  mutate(MDCR_BENES = as.numeric(ORGNL_MDCR_BENES));
 
 # Obesity
 OBESITY <- read_csv("Data Source/BRFSS.csv",show_col_types = FALSE) %>%

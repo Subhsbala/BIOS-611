@@ -1,3 +1,6 @@
+library(tidyverse)
+library(dplyr)
+
 # Joining base OP dataset with Demo dataset
 
 # Read in input files
@@ -12,4 +15,4 @@ OP_DEMO <- OP_Geo %>%
 OP_Musc <- OP_DEMO %>%
   filter(grepl("Musculoskeletal", APC_Desc, ignore.case = TRUE));
 
-write_csv(OP_Musc,"derived_data/OP_Musculoskeletal");
+write_csv(OP_Musc,"derived_data/OP_Musculoskeletal.csv");
