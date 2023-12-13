@@ -7,7 +7,7 @@ output:
 ---
 
 # Aim of the Project
-This project aims to develop a logistic regression model to identify significant explanatory variables determining high utilization of health services in the United States from 2016-2021. The data used in this study is sourced from CMS administrative claims data provided by CMS.gov.The Medicare Outpatient Hospitals by Geography and Service dataset provides information on services for Original Medicare Part B beneficiaries by OPPS hospitals. 
+This project aims to develop a logistic regression model to identify significant explanatory variables determining high utilization of health services in the United States from 2016-2021 of medicare beneficiaries aged 65+. The data used in this study is sourced from CMS administrative claims data provided by CMS.gov.The Medicare Outpatient Hospitals by Geography and Service dataset provides information on services for Original Medicare Part B beneficiaries by OPPS hospitals. 
 
 # Datasets
 1. Medicare Outpatient - These datasets contain information on the number of services, payments, and submitted charges organized by geography and comprehensive Ambulatory Payment Classification (APC) from 2016 through 2021.
@@ -126,5 +126,12 @@ Below we can see the performance metrics of the Logistic regression model:
 
 ![ROC Curve](./figures/ROC_curve.png)
 
-We can see that the Area under the curve is 0.919, this is also because we are predicting using the same data set we trained on. Thus we can say that Year, population size and Asian race are very significant variables when determining healthcare utilization in the states. The less significant variables are White, Black and Hawaiian race variables.
+**ROC Curve:** We can see that the Area under the curve is 0.919, this is also because we are predicting using the same data set we trained on. Thus we can say that Year, population size and Asian race are very significant variables when determining healthcare utilization in the states. The less significant variables are White, Black and Hawaiian race variables.
+
+# Future questions
+
+Our analysis has provided valuable insights into the factors affecting the utilization of health services in the United States from 2016-2021. However, it also opens up several avenues for future research:  
+
+one significant area of research involves examining the impact of technological advancements on healthcare service utilization among Medicare beneficiaries aged 65 and older. This includes exploring how the integration of telehealth, remote monitoring tools, and digital health applications influences patterns of healthcare access and utilization. With the increasing adoption of technology in healthcare, especially pronounced during and post the COVID-19 pandemic, there is a growing need to understand its effects on elderly populations. Such an analysis would involve assessing whether these technologies lead to increased access to care, changes in frequency of healthcare service use, or shifts in the types of services consumed. This research could guide future healthcare policies and initiatives aimed at integrating technology effectively to enhance healthcare delivery for older adults.
+
 
