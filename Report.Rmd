@@ -1,0 +1,145 @@
+---
+title: "Report"
+author: "Subha Balasubramanian"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+# Aim of the Project
+This project aims to develop a logistic regression model to identify significant explanatory variables determining high utilization of health services in the United States from 2016-2021. The data used in this study is sourced from CMS administrative claims data provided by CMS.gov.The Medicare Outpatient Hospitals by Geography and Service dataset provides information on services for Original Medicare Part B beneficiaries by OPPS hospitals. 
+
+# Datasets
+1. Medicare Outpatient - These datasets contain information on the number of services, payments, and submitted charges organized by geography and comprehensive Ambulatory Payment Classification (APC) from 2016 through 2021.
+2. Medicare Enrollees - The total number of medicare enrollees in each state of the United States
+3. BRFSS - This dataset contains information on the average percentage of people who are obese in each state of the United States from 2016 through 2021.
+4. Death by falls - This dataset contains information on the number of deaths that were related to falls in those aged 65+ in each state of the United States from 2016 through 2021.
+5. Population by age - This dataset contains information on the number of people living in each state of the United States stratified by age from 2016 through 2021.
+6. Population by race - This dataset contains information on the number of people living in each state of the United States stratified by race from 2016 through 2021.
+7. Population by income - This dataset contains information on the number of people living in each state of the United States stratified by income from 2016 through 2021.
+
+To begin we start off with an explantory data analysis on the merged datasets
+
+## Explantory Data Analysis
+
+### Time series charts to visualze the trend over the years. 
+
+#### Time series Chart of Total average cost of services provided by region
+
+Region is categorized into 5 different areas- Midwest, Northeast, Southeast Southwest, and West. We see below a line chart of the 5 different regions. 
+We can see that the states in the Southwest region have greater charges for medicare services when compared to the Eastern states. 
+
+![Total average cost by region time series graph](./figures/total_cost_OP.png) 
+
+#### Time series Chart of Total average cost of services per discharge provided by region
+Region is categorized into 5 different areas- Midwest, Northeast, Southeast Southwest, and West. We have plotted below  a time series graph of the different regions.
+We can see clearly that the states in the West have higher costs per discharge when compared to the other regions.
+
+![Total average cost per discharge by region time series graph](./figures/total_cost_perdisc_OP.png)
+We also observe that there has been a drop in the charges for medicare services from 2016 to 2017 and remains fairly constant through 2019 and then slowly increases till 2021.
+
+### Top 10 APC services used by beneficiaries over the years.
+The top 10 APC's with highest number of services used by beneficiaries over the years is depicted in the graph below:
+
+![Top 10 APC's](./figures/Top10_APC.png)
+We can see that Comprehensive Observation services is the APC that has been the most used service throughout the years. Musculoskeletal procedures occurs thrice at different levels. Thus moving forward we will subset our data set to Musculoskeletal procedures and perform machine learning methods to classify states based on utilization rates.
+
+#### Time series Chart of services per 1000 beneficiaries for Musculoskeletal procedures 
+Region is categorized into 5 different areas- Midwest, Northeast, Southeast Southwest, and West. We have plotted below  a time series graph of the different regions.
+We can see that the Southwest and Southeast states receive the most medicare services throughout the years on average.
+
+![Services per 1000 beneficiaries](./figures/service_per_bene_OP.png)
+
+#### Classification of US states based on healthcare utilization
+Coding for high utilization: 1 if number of services received per 1000 beneficiaries is greater than 4 then that state is considered to have high healthcare utilization and 0 otherwise. Below we can see the US map over the years colored blue based on healthcare utilization.
+
+# Exploratory Data Analysis Visualizations
+
+<div style="display: flex; flex-wrap: wrap; padding: 0; margin: 0; justify-content: space-around;">
+  <div style="flex: 0 0 50%; padding: 10px;">
+    ![US 2016](./figures/services_USmap2016.png)
+  </div>
+  <div style="flex: 0 0 50%; padding: 10px;">
+    ![US 2017](./figures/services_USmap2017.png)
+  </div>
+  <div style="flex: 0 0 50%; padding: 10px;">
+    ![US Map of Services 2018](.figures/services_USmap2018.png)
+  </div>
+  <div style="flex: 0 0 50%; padding: 10px;">
+    ![US 2019](./figures/services_USmap2019.png)
+  </div>
+  <div style="flex: 0 0 50%; padding: 10px;">
+    ![US 2020](./figures/services_USmap2020.png)
+  </div>
+  <div style="flex: 0 0 50%; padding: 10px;">
+    ![US 2021](./figures/services_USmap2021.png)
+  </div>
+</div>
+
+
+### Correlation between all the variables
+
+To understand the relationship between each pairs of variables, we plot a correlation heat map.
+
+#### Correlation Heat Map
+
+![Correlation Heat Map](./figures/corrplot_image.png)
+As we can see, race of an individual is highly correlated with each other with an orange hue, which indicates that they are negatively associated. Similarly, we can see that Asians and Hawaiians are negatively correlated with obesity while the Black population is more negatively associated with falls. We believe that these variables along with payment variables negatively affect healthcare utilization and thus were fitted in a logistic regression model.
+
+### Logistic Regression Model
+
+Finally, we fit a logistic regression model with utilization as the outcome variable and race of individuals (Asian, Hawaiian, Black, White, Hispanic), obesity, falls, population, income, average submitted charges, and Year as the independent variables. The model is as shown below.
+
+ll:
+glm(formula = utilization ~ obese + falls + pop + white + black + 
+    hawai + asian + hispanic + avg_chrg + Year + income, family = "binomial", 
+    data = OP_util)
+
+Coefficients:
+            Estimate Std. Error z value Pr(>|z|)    
+(Intercept) -4.56269    0.76395  -5.973 2.34e-09 ***
+obese        0.49342    0.35798   1.378 0.168095    
+falls        0.05583    0.32027   0.174 0.861623    
+pop         -2.49519    0.54572  -4.572 4.83e-06 ***
+white       -2.11300    0.97415  -2.169 0.030077 *  
+black       -1.90862    0.82795  -2.305 0.021154 *  
+hawai       -6.33006    2.48392  -2.548 0.010821 *  
+asian       -5.35350    1.52352  -3.514 0.000442 ***
+hispanic    -0.30377    0.40302  -0.754 0.451017    
+avg_chrg    -0.77779    0.40692  -1.911 0.055950 .  
+Year         1.86638    0.40130   4.651 3.31e-06 ***
+income      -0.04333    0.39807  -0.109 0.913320    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 202.44  on 198  degrees of freedom
+Residual deviance: 111.31  on 187  degrees of freedom
+AIC: 135.31
+
+Number of Fisher Scoring iterations: 8
+
+
+From the p values, we see that Year, Asian race and population in each state is a significant predictor of healthcare utilization in each state.
+
+#### Performance metrics
+
+Below we can see the performance metrics of the Logistic regression model:
+
+Confusion matrix:
+   
+      0   1
+  0 150   8
+  1  16  25
+
+
+Accuracy: 0.879397 
+
+Sensitivity: 0.6097561 
+
+Specificity: 0.9493671 
+
+![ROC Curve](./figures/ROC_curve.png)
+We can see that the Area under the curve is 0.919, this is also because we are predicting using the same data set we trained on. Thus we can say that Year, population size and Asian race are very significant variables when determining healthcare utilization in the states. The less significant variables are White, Black and Hawaiian race variables.
+
