@@ -4,7 +4,6 @@ library(dplyr)
 library(ggplot2)
 library(ggmap)
 library(maps)
-library(mapdata)
 
 states_map <- map_data("state")
 
