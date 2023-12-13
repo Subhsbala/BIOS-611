@@ -68,6 +68,7 @@ To understand the relationship between each pairs of variables, we plot a correl
 #### Correlation Heat Map
 
 ![Correlation Heat Map](./figures/corrplot_image.png)
+
 As we can see, race of an individual is highly correlated with each other with an orange hue, which indicates that they are negatively associated. Similarly, we can see that Asians and Hawaiians are negatively correlated with obesity while the Black population is more negatively associated with falls. We believe that these variables along with payment variables negatively affect healthcare utilization and thus were fitted in a logistic regression model.
 
 ### Logistic Regression Model
@@ -110,7 +111,7 @@ From the p values, we see that Year, Asian race and population in each state is 
 
 Below we can see the performance metrics of the Logistic regression model:
 
-**Confusion matrix:
+**Confusion matrix**:
    
     0   1
 0 150   8
