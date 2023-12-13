@@ -32,7 +32,7 @@ map_region <- function(Yr){
   plot <- ggplot(OP_map, aes(long, lat, group = group, fill = srvc_per_bene > 4)) +
     geom_polygon(color="white", size=0.1) + 
     labs(title = "Services per Beneficiary",
-         subtitle = "Outpatient Musculoskeletal Care",
+         subtitle = str_c("Outpatient Musculoskeletal Care - ", Yr),
          fill = "High utilization") +
     theme_minimal() +
     theme(plot.title = element_text(face="bold")) +
